@@ -13,6 +13,7 @@ test:
 
 deployment:
   prod:
-    branch: master23
+    branch: master
     commands:
+      - echo 'Pujitha Deploying develop'
       - ./deploy.sh
