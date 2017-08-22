@@ -4,17 +4,17 @@ jobs:
     docker:
       - image: circleci/classic:latest
 
-steps:
-  - checkout
+    steps:
+      - checkout
 
-  # Deploy commands
-  - deploy:
-      name: Sample test to reach aws
-      command: |
-        if [ "${CIRCLE_BRANCH}" == "master" ]; then
-          pip install awscli --upgrade --user
-          echo 'Pujitha Deploying develop'
-          deploy.sh
-        else
-          echo "Not master branch. So not deploying"
+      # Deploy commands
+      - deploy:
+          name: Sample test to reach aws
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              pip install awscli --upgrade --user
+              echo 'Pujitha Deploying develop'
+              deploy.sh
+            else
+              echo "Not master branch. So not deploying"
         fi
