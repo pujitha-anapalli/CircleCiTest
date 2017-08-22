@@ -17,4 +17,4 @@ jobs:
               deploy.sh
             else
               echo "Not master branch. So not deploying"
-        fi
+            fi
