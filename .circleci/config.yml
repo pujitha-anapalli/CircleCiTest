@@ -1,34 +1,20 @@
-# Golang CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2
 jobs:
   build:
     docker:
-      # specify the version
-      - image: circleci/golang:1.8
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
+      - image: circleci/classic:latest
 
-    #### TEMPLATE_NOTE: go expects specific checkout path representing url
-    #### expecting it in the form of
-    ####   /go/src/github.com/circleci/go-tool
-    ####   /go/src/bitbucket.org/circleci/go-tool
-    #working_directory: /go/src/github.com/CircleCiTest
-    steps:
-      - checkout
+steps:
+  - checkout
 
-      # specify any bash command here prefixed with `run: `
-      - run: echo "pujitha test5"
-      - run: go get -v -t -d ./...
-      - run: go test -v ./...
-      - run: sudo apt-get -y -qq update
-      - run: sudo apt-get -y -qq install python3.4-dev
-      - run: curl -O https://bootstrap.pypa.io/get-pip.py
-      - run: python3.4 get-pip.py --user
-      - run: sudo apt-get install python-dev
-      - run: pip install awscli
-      - run: ./deploy.sh
+  # Deploy commands
+  - deploy:
+      name: Sample test to reach aws
+      command: |
+        if [ "${CIRCLE_BRANCH}" == "master" ]; then
+          pip install awscli --upgrade --user
+          echo 'Pujitha Deploying develop'
+          deploy.sh
+        else
+          echo "Not master branch. So not deploying"
+        fi
